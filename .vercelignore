@@ -1,0 +1,13 @@
+.local-postgres/
+.vercel/
+.npm-cache/
+.env*
+!.env.example
+.next/
+node_modules/
+coverage/
+*.tsbuildinfo
+tests/
+supabase/tests/
+supabase/.temp/
+supabase/.branches/

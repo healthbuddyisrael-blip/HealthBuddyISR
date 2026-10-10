@@ -1,0 +1,12 @@
+node_modules/
+.npm-cache/
+.next/
+out/
+coverage/
+.vercel/
+.env*
+!.env.example
+*.tsbuildinfo
+npm-debug.log*
+.DS_Store
+.local-postgres/

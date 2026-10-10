@@ -1,0 +1,19 @@
+import type { NextRequest } from "next/server";
+import { updateSession } from "@/lib/supabase/proxy";
+
+export async function proxy(request: NextRequest) {
+  return updateSession(request);
+}
+
+export const config = {
+  matcher: [
+    "/login",
+    "/auth/:path*",
+    "/forgot-password",
+    "/reset-password",
+    "/invite/:path*",
+    "/app/:path*",
+    "/coach/:path*",
+    "/admin/:path*",
+  ],
+};
