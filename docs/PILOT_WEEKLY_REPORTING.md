@@ -147,7 +147,7 @@ differences from the original weekly view. Before/after fingerprints match for
 daily records, baseline records, weekly figures, profiles, assignments, legacy
 coaching check-ins, and the existing workout-counting function. Batya's October
 4–10 historical fallback remains one strength workout and zero aerobic workouts.
-No weekly reports or screenshots were fabricated for verification.
+No real participant reports or screenshots were fabricated for verification.
 
 Weeks outside a participant's enrollment are labelled outside the pilot period
 and never marked overdue. This includes the default completed week on October 10,
@@ -158,8 +158,13 @@ concurrency scenarios; lint; typecheck; production build; 84 responsive browser
 layout checks; production public-page/asset smoke checks; and four production HTTP
 authentication regression tests including the new pilot routes.
 
-Authenticated production browser upload, draft, submit, replacement and correction
-checks still require an authorized session/test account. Managed Storage upload
-behavior was not verified end to end in production. The correct GitHub remote
-still has no branches; this release is preserved locally, but GitHub write access
-remains unresolved and the release has not been pushed there.
+Authenticated production coach upload, draft, submit, replacement and correction
+checks passed using isolated QA data and the user's interactive login. Actual
+managed Storage checks denied anonymous and participant image access. Separate
+admin browser verification remains pending. All temporary QA fixtures were
+removed and the final historical fingerprints match their pre-migration values; see
+[the verification matrix](PILOT_VERIFICATION.md) for individual results.
+
+The correct GitHub remote still has no branches; this release is preserved
+locally, but GitHub write access remains unresolved and the release has not been
+pushed there.
