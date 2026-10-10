@@ -128,7 +128,7 @@ and no attempt is made to use the abandoned Talmal6 account.
 
 Migration `20261011000100_pilot_weekly_reporting.sql` was applied successfully to
 `jvfevkatchjmajrioxod`. The application was deployed through the established Vercel
-directory deployment workflow. Deployment `dpl_8m6bvJJhkT5FgLiz4tzWYGDTD4xC` is
+directory deployment workflow. Deployment `dpl_FRgSMjxcVDYhgRFGU2KjfQtWoKUr` is
 READY at https://health-buddy-israel.vercel.app.
 
 Following explicit cohort approval, both currently active, assigned participants
@@ -148,6 +148,10 @@ daily records, baseline records, weekly figures, profiles, assignments, legacy
 coaching check-ins, and the existing workout-counting function. Batya's October
 4–10 historical fallback remains one strength workout and zero aerobic workouts.
 No weekly reports or screenshots were fabricated for verification.
+
+Weeks outside a participant's enrollment are labelled outside the pilot period
+and never marked overdue. This includes the default completed week on October 10,
+before the first enrolled reporting period has closed.
 
 Validation passed: 96 application tests; 10 local SQL/RLS suites and three existing
 concurrency scenarios; lint; typecheck; production build; 84 responsive browser

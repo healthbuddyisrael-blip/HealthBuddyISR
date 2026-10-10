@@ -77,13 +77,17 @@ export function ReportWorkspace({
       </form>
       <p className="rounded-xl bg-muted p-3">
         מצב:{" "}
-        {report?.status === "submitted"
-          ? "הוגש"
-          : report
-            ? "טיוטה"
-            : "טרם דווח"}{" "}
+        {!eligible
+          ? "מחוץ לתקופת הפיילוט"
+          : report?.status === "submitted"
+            ? "הוגש"
+            : report
+              ? "טיוטה"
+              : "טרם דווח"}{" "}
         · שיחה: {report?.call_completed ? "הושלמה" : "טרם הושלמה"}
-        {reportOverdue(data.week, data.today) && report?.status !== "submitted"
+        {eligible &&
+        reportOverdue(data.week, data.today) &&
+        report?.status !== "submitted"
           ? " · באיחור"
           : ""}
       </p>

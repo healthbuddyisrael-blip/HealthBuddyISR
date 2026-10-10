@@ -194,4 +194,12 @@ test("mobile form has draft/submit, private image input, all five notes; partici
     /type="file"|<textarea|name="average_daily_steps"/,
   );
   assert.match(participant, /אין צורך בדיווח עצמאי/);
+  const beforeEnrollment = render(
+    h(ReportWorkspace, {
+      data: { ...detail, week: "2026-09-27", today: "2026-10-10" },
+      basePath: "/coach/trainees/" + id,
+    }),
+  );
+  assert.match(beforeEnrollment, /מחוץ לתקופת הפיילוט/);
+  assert.doesNotMatch(beforeEnrollment, /באיחור|type="file"/);
 });
