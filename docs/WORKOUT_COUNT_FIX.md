@@ -5,7 +5,8 @@ one-day activity window with one true strength flag returns one recorded session
 and a weekly frequency of `1 * 7 / 1 = 7`. The shared progress component presented
 that frequency as workouts per week, without identifying it as an average.
 Aerobic workouts use the same calculation. Participant, coach, and admin detail
-screens share that component. Batya's specific production case remains unverified.
+screens share that component. The production investigation now confirms the
+reported participant's first-day window has this exact 1-to-7 behavior.
 
 The source of recorded workouts is `daily_steps`: one row per trainee/date,
 independent nullable strength/cardio flags. `save_daily_activity` upserts that
@@ -36,34 +37,51 @@ Lint, typecheck, and the production build also passed. UI verification used
 rendered shared components and the existing coach/admin/calendar UI tests;
 no live authenticated production browser session was available.
 
-Deployment follow-up: local CLI project link and app URL both identify
-`jvfevkatchjmajrioxod`, but the logged-in CLI account lists only
-`tsjbytyxokbtayrczzku`. Linked queries return 403. No production records were
-modified and the migration has not been deployed.
+Deployment follow-up: the corrected Supabase CLI login now lists
+`health-buddy-production` (`jvfevkatchjmajrioxod`), matching the local project link
+and app URL. The former access blocker is resolved. The unrelated Supabase
+project was not modified.
 
 Read-only access through the existing application credential succeeded against
 the guarded Health Buddy project. The reported participant has exactly one daily
 report with strength true and aerobic false: recorded counts 1 and 0.
 There were no duplicate daily rows in that result. This supports a calculation
-or presentation issue, but confirming the production 1-to-7 path still requires
-reading the baseline/window and deployed function. Database-management access
-remains unavailable; the app credential is not used to impersonate participants
-or execute schema changes.
+or presentation issue. Read-only production SQL confirmed that the participant's
+program start matches the first report date, and that the deployed function
+returned a strength count of 1 but a one-day weekly frequency of 7.
 
 The corrected repository `https://github.com/healthbuddyisrael-blip/HealthBuddyISR.git`
 cloned into the ignored `.local-postgres/healthbuddyisr-deployment-repo` directory
-and had no remote commits before this source upload.
+and had no remote commits when checked.
 There are no remote commits to compare for conflicts. The original workspace
 and fix remain intact. The documented release workflow deploys directory source
 to Vercel project `health-buddy-israel`; no Git integration is configured in the
 release notes. Read-only Vercel inspection succeeded and its verified domain is
-`health-buddy-israel.vercel.app`. The current production deployment is READY
-(`dpl_72HWS6aK9EpZ1W7NosXeUyohtuEH`); it was not replaced during this task.
+`health-buddy-israel.vercel.app`. The source and fix are committed locally in the
+corrected repository. GitHub still returns 403 for writes by `Talmal6`, so that
+repository push remains pending collaborator access.
 
 The migration preserves the existing signature, return types, invoker security,
 empty search path, and complete-window calculations. Fresh local upgrade/replay
-passes, but live schema/function/migration compatibility cannot be certified
-without database-management access. Production migration, application release,
-authenticated count verification, and historical before/after checks remain
-pending that access. All 91 application tests and the local SQL/concurrency
-regressions were rerun successfully during deployment preparation.
+passes. The production function matched the expected previous definition, and
+the dry run listed only `20261010000100`. That migration is now applied and
+recorded in production migration history. No stored reports were updated.
+
+Before/after checks confirm the first-day projected frequency changed from 7 to
+NULL, while the recorded strength/aerobic counts remain 1/0. Fingerprints for
+all daily reports, baselines, weekly activity, completed outcomes and function
+permissions match exactly. Function security and return types remain unchanged.
+The shared UI component renders the actual production response as counts 1/0.
+An authenticated live browser session is still required for direct screen
+verification; no authentication or role configuration was changed to obtain one.
+All 91 application tests, lint and typecheck were rerun successfully during
+deployment. Local SQL/concurrency regressions also passed during preparation.
+
+The application fix is now live at `https://health-buddy-israel.vercel.app`.
+Production deployment `dpl_J9bW2iHF2fkzjZhQtXk4ng1S7Le2` reached READY through the
+existing directory deployment workflow. Five public pages and 15 deployed assets
+passed smoke checks, including Hebrew RTL, security headers and credential
+exposure checks. All four existing production HTTP regression tests passed.
+The hosted production build succeeded; no weekly reporting redesign or health
+integration was introduced. Remaining follow-up is GitHub write access and
+an authenticated production browser check of the participant/coach/admin screens.
