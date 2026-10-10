@@ -8,9 +8,12 @@ test("anonymous users cannot fetch any protected route prefix", async () => {
   for (const path of [
     "/app",
     "/coach",
+    "/coach/pilot",
     "/coach/invitations",
     "/coach/trainees/test-id",
     "/admin",
+    "/admin/pilot",
+    "/admin/pilot/test-id",
     "/admin/invitations",
     "/admin/coaches/test-id",
     "/admin/coaches/test-id/trainees/test-id",

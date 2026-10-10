@@ -28,6 +28,9 @@ export default async function CoachPage({
           <Link href="/coach/invitations">הזמנות למתאמנים</Link>
         </Button>
       </div>
+      <Button asChild>
+        <Link href="/coach/pilot">דיווח ומעקב שבועי בפיילוט</Link>
+      </Button>
       <Form action="/coach" className="flex flex-wrap items-end gap-3">
         <div className="min-w-40 flex-1">
           <label
@@ -70,7 +73,11 @@ export default async function CoachPage({
         </div>
       ) : (
         <>
-          <TraineeList trainees={data.trainees} today={businessDate()} />
+          <TraineeList
+            trainees={data.trainees}
+            today={businessDate()}
+            pilotIds={data.pilotIds}
+          />
           {data.trainees.length === 0 && <p>אין מתאמנים בעמוד זה.</p>}
           <Pagination
             label="עמודי מתאמנים"

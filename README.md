@@ -9,6 +9,10 @@ The [2026-10-04 hosted Supabase setup report](docs/HOSTED_SUPABASE_SETUP.md) rec
 
 ## Stack and local development
 
+The coach-entered pilot weekly workflow, enrollment, private evidence, source
+precedence, and release verification are documented in
+[Pilot weekly reporting](docs/PILOT_WEEKLY_REPORTING.md).
+
 Next.js 16 App Router, React 19, strict TypeScript, Tailwind CSS 4, shadcn/Radix primitives, Supabase Auth/PostgreSQL/SSR, Zod, React Hook Form, Nodemailer/Gmail SMTP, and React Email rendering. ESLint and Prettier enforce code quality. No separate backend or global state library.
 
 Use Node.js 24 LTS (minimum 22.18) and npm. Dependencies and the download cache are project-local. Copy `.env.example` to `.env.local`, fill in configuration, then:

@@ -14,7 +14,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "node --test tests/auth.test.mts tests/invitations.test.mts tests/email.test.mts tests/steps.test.mts tests/coach.test.mts tests/coach-ui.test.mts tests/admin.test.mts tests/admin-ui.test.mts tests/ux.test.mts tests/release.test.mts tests/activity.test.mts tests/coaching-calls.test.mts tests/weekly-calendar.test.mts",
+    "test": "node --test tests/auth.test.mts tests/invitations.test.mts tests/email.test.mts tests/steps.test.mts tests/coach.test.mts tests/coach-ui.test.mts tests/admin.test.mts tests/admin-ui.test.mts tests/ux.test.mts tests/release.test.mts tests/activity.test.mts tests/coaching-calls.test.mts tests/weekly-calendar.test.mts tests/pilot.test.mts",
     "test:email": "node --test tests/email.test.mts",
     "test:steps": "node --test tests/steps.test.mts",
     "test:coach": "node --test tests/coach.test.mts tests/coach-ui.test.mts",

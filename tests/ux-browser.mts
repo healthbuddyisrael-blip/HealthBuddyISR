@@ -21,6 +21,11 @@ const { AnalyticsMetrics } =
   await import("../src/components/admin/analytics-metrics.tsx");
 const { DayDetailDialog } =
   await import("../src/components/coach/day-detail-dialog.tsx");
+const { ReportWorkspace } =
+  await import("../src/components/pilot/report-workspace.tsx");
+const { PilotOverviewTable } =
+  await import("../src/components/pilot/overview.tsx");
+import type { PilotDetail, PilotOverview } from "../src/lib/pilot/model.ts";
 const base = process.env.TEST_BASE_URL ?? "http://127.0.0.1:3114";
 const artifact = resolve(".local-postgres/weekly-calendar-browser");
 mkdirSync(artifact, { recursive: true });
@@ -53,6 +58,48 @@ const day = {
   future: false,
 };
 const fixtures: Record<string, string> = {
+  "pilot-form": render(
+    h(ReportWorkspace, {
+      basePath: "/coach/trainees/fixture",
+      data: {
+        name,
+        traineeId: "c0000000-0000-4000-8000-000000000004",
+        week: "2026-09-20",
+        startsOn: "2026-09-20",
+        endsOn: null,
+        report: null,
+        reports: [],
+        figures: [],
+        total: 0,
+        page: 1,
+        screenshotUrl: null,
+        readOnly: false,
+        today: "2026-09-27",
+      } satisfies PilotDetail,
+    }),
+  ),
+  "pilot-admin": render(
+    h(PilotOverviewTable, {
+      admin: true,
+      today: "2026-09-27",
+      data: {
+        week_start: "2026-09-20",
+        week_end: "2026-09-26",
+        total: 0,
+        summary: {
+          participants: 0,
+          submitted: 0,
+          missing: 0,
+          conversations: 0,
+          pending_conversations: 0,
+          overdue: 0,
+          completion_rate: null,
+        },
+        coaches: [],
+        participants: [],
+      } satisfies PilotOverview,
+    }),
+  ),
   trainee: render(
     h(
       "div",

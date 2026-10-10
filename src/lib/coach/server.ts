@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { loadDashboard } from "@/lib/steps/server";
 import { loadCoachingHistory } from "@/lib/coaching/server";
 import type { Report, Target } from "@/lib/steps/model";
+import { businessDate } from "@/lib/steps/model";
 import { coachDashboardSchema, sevenDaySummary, shiftDate } from "./model";
 
 export async function loadCoachDashboard(page: number, search: string) {
@@ -22,7 +23,20 @@ export async function loadCoachDashboard(page: number, search: string) {
     });
     return null;
   }
-  return parsed.data;
+  const today = businessDate();
+  const ids = parsed.data.trainees.map((t) => t.trainee_id);
+  const membership = ids.length
+    ? await client
+        .from("pilot_participants")
+        .select("trainee_id,starts_on,ends_on")
+        .in("trainee_id", ids)
+        .lte("starts_on", today)
+    : { data: [], error: null };
+  if (membership.error) return null;
+  const pilotIds = (membership.data ?? [])
+    .filter((m) => !m.ends_on || m.ends_on >= today)
+    .map((m) => m.trainee_id as string);
+  return { ...parsed.data, pilotIds };
 }
 export async function loadCoachDetail(
   traineeId: string,

@@ -79,6 +79,7 @@ for (const suite of [
   "admin",
   "activity",
   "workout_counts",
+  "pilot_weekly",
   "coaching_calls",
 ]) {
   sqlFile(`supabase/tests/${suite}.sql`);
@@ -135,5 +136,5 @@ const concurrency = spawnSync(
 assert.equal(concurrency.status, 0, concurrency.stderr || concurrency.stdout);
 console.log(concurrency.stdout);
 console.log(
-  "PASS fresh local migrations, nine SQL suites, three concurrency scenarios. Hosted Auth/PostgREST remain unverified.",
+  "PASS fresh local migrations, ten SQL suites, three concurrency scenarios. Hosted Auth/PostgREST remain unverified.",
 );

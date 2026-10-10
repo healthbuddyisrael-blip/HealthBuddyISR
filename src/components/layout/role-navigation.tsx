@@ -11,12 +11,14 @@ export function RoleNavigation({
     role === "admin"
       ? [
           ["/admin", "סקירה"],
+          ["/admin/pilot", "דיווחי פיילוט"],
           ["/admin/coaching", "שיחות שבועיות"],
           ["/admin/invitations", "הזמנות מאמנים"],
         ]
       : role === "coach"
         ? [
             ["/coach", "המתאמנים שלי"],
+            ["/coach/pilot", "דיווח שבועי"],
             ["/coach/invitations", "הזמנות"],
           ]
         : [["/app", "היום"]];

@@ -8,6 +8,8 @@ validateServerEnv(process.env);
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // 3MB images plus form metadata fit beneath the hosting request-size limit.
+  experimental: { serverActions: { bodySizeLimit: "4mb" } },
   // Invitation URLs and recovery query strings contain bearer secrets.
   logging: { incomingRequests: false },
   async headers() {

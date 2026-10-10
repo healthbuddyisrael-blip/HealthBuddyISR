@@ -14,6 +14,10 @@ import { ReadOnlyStepCalendar } from "@/components/steps/read-only-step-calendar
 import { ActivityProgress } from "@/components/activity/activity-progress";
 import { BaselineForm } from "@/components/activity/baseline-form";
 import LinkHistory from "@/components/coaching/trainee-call-history";
+import { pilotMembership, loadPilotDetail } from "@/lib/pilot/server";
+import { pilotWeek } from "@/lib/pilot/model";
+import { ReportWorkspace } from "@/components/pilot/report-workspace";
+import { historyPage } from "@/lib/coaching/model";
 
 export default async function AdminTraineePage({
   params,
@@ -24,6 +28,8 @@ export default async function AdminTraineePage({
     range?: string | string[];
     month?: string | string[];
     week?: string | string[];
+    reportWeek?: string | string[];
+    reportPage?: string | string[];
   }>;
 }) {
   await requireRole("admin");
@@ -36,6 +42,29 @@ export default async function AdminTraineePage({
       <DataLoadError message="לא הצלחנו לטעון את נתוני המתאמן. נסו שוב." />
     );
   const week = selectedWeek(search.week, data.today, search.month);
+  const member = await pilotMembership(traineeId);
+  if (
+    member &&
+    ((member.starts_on <= data.today &&
+      (!member.ends_on || member.ends_on >= data.today)) ||
+      search.reportWeek !== undefined)
+  ) {
+    const pilot = await loadPilotDetail(
+      traineeId,
+      pilotWeek(search.reportWeek, data.today),
+      true,
+      historyPage(search.reportPage),
+    );
+    return pilot ? (
+      <ReportWorkspace
+        key={pilot.week}
+        data={pilot}
+        basePath={`/admin/coaches/${coachId}/trainees/${traineeId}`}
+      />
+    ) : (
+      <DataLoadError message="לא הצלחנו לטעון את דיווח הפיילוט." />
+    );
+  }
   const dashboard = await loadDashboard(traineeId, week, data.today);
   if (!dashboard)
     return (
@@ -51,6 +80,11 @@ export default async function AdminTraineePage({
         חזרה לנתוני המאמן
       </Link>
       <h1 className="text-2xl font-bold">{data.full_name}</h1>
+      {member && (
+        <Link href={`/admin/pilot/${traineeId}`} className="underline">
+          מעקב שבועי בפיילוט (למשתתפים ששויכו)
+        </Link>
+      )}
       <RangeControls path={path} range={range} week={week} />
       <section
         className="rounded-2xl border bg-card p-5"

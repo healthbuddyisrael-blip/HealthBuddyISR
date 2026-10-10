@@ -33,6 +33,9 @@ export default async function AdminPage({
   return (
     <div className="space-y-8">
       <h1 className="text-2xl font-bold">סקירת מערכת</h1>
+      <Button asChild>
+        <Link href="/admin/pilot">מעקב דיווחים שבועיים בפיילוט</Link>
+      </Button>
       <AdminWeeklyStatus />
       <RangeControls path="/admin" range={query.range} search={query.search} />
       <PilotSummary />
