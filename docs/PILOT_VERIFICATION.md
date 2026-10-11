@@ -65,6 +65,9 @@ permissions or policies were changed. The exact cause of the initial managed API
 failure was not established; operators should investigate that path if using
 direct Auth account deletion for provisioned participants.
 
-GitHub write access to `healthbuddyisrael-blip/HealthBuddyISR` remains unresolved.
-The remote has no branches. Code is preserved in local commits and an offline Git
-bundle; no push to that remote is claimed.
+GitHub write access was unresolved at verification time. On October 11, 2026,
+authentication with `healthbuddyisrael-blip` resolved access and the preserved
+release was successfully published to `main` in
+[HealthBuddyISR](https://github.com/healthbuddyisrael-blip/HealthBuddyISR).
+Admin browser verification remains pending; GitHub publication does not imply
+that this remaining check has passed.

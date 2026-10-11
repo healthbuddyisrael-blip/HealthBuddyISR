@@ -121,8 +121,8 @@ an administrator's deliberate action in the new UI.
 
 The original workspace has no Git metadata. The supplied HealthBuddyISR remote
 was empty when checked; prepared local commits remain in an isolated checkout.
-GitHub write access is unresolved. No code is claimed pushed to that repository,
-and no attempt is made to use the abandoned Talmal6 account.
+GitHub write access was unresolved at the initial deployment. Publication on
+October 11 is recorded below and uses the `healthbuddyisrael-blip` account.
 
 ### Production release — October 10, 2026
 
@@ -165,6 +165,9 @@ admin browser verification remains pending. All temporary QA fixtures were
 removed and the final historical fingerprints match their pre-migration values; see
 [the verification matrix](PILOT_VERIFICATION.md) for individual results.
 
-The correct GitHub remote still has no branches; this release is preserved
-locally, but GitHub write access remains unresolved and the release has not been
-pushed there.
+GitHub write access was resolved on October 11, 2026 by authenticating the
+`healthbuddyisrael-blip` account. The preserved application, workout fix, pilot
+workflow, migrations, tests and documentation were successfully pushed to `main`
+in [HealthBuddyISR](https://github.com/healthbuddyisrael-blip/HealthBuddyISR).
+This publication does not change the existing Vercel deployment workflow or the
+pending admin browser verification.
